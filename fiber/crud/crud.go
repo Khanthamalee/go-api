@@ -1,6 +1,9 @@
 package crud
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/template/html/v2"
+)
 
 type Book struct {
 	ID     int    `json:"id"`
@@ -14,13 +17,17 @@ var books []Book = []Book{
 }
 
 func Callcrud() {
-	app := fiber.New()
+	engine := html.New("./views", ".html")
+	app := fiber.New(fiber.Config{
+		Views: engine,
+	})
 	app.Get("/books", getBooks)
 	app.Get("/books/:id", getBook)
 	app.Post("/books", createBook)
 	app.Put("/books/:id", updateBook)
 	app.Delete("/books/:id", deleteBook)
 	app.Post("/upload", uploadFile)
+	app.Get("/", renderTemplate)
 	app.Listen(":8080")
 
 }
