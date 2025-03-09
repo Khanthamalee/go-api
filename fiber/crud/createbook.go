@@ -7,7 +7,8 @@ func createBook(c *fiber.Ctx) error {
 	if err := c.BodyParser(book); err != nil {
 		return c.Status(fiber.StatusBadRequest).SendString(err.Error())
 	}
-	book.ID = len(books) + 1
+	//book.ID = len(books) + 1
+	book.ID = books[(len(books)-1)].ID + 1
 	books = append(books, *book)
 	return c.JSON(books)
 }

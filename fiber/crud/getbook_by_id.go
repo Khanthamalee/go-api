@@ -17,5 +17,5 @@ func getBook(c *fiber.Ctx) error {
 			return c.JSON(book)
 		}
 	}
-	return c.SendStatus(fiber.StatusBadRequest)
+	return c.SendStatus(fiber.StatusNotFound)
 }
